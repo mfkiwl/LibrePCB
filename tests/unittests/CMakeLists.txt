@@ -52,6 +52,7 @@ add_executable(
   core/network/filedownloadtest.cpp
   core/network/networkrequestbasesignalreceiver.h
   core/network/networkrequesttest.cpp
+  core/project/board/boardd356netlistexporttest.cpp
   core/project/board/boarddesignrulestest.cpp
   core/project/board/boardfabricationoutputsettingstest.cpp
   core/project/board/boardgerberexporttest.cpp
