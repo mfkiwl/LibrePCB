@@ -138,6 +138,7 @@ private:
   void execDesignRuleCheckDialog() noexcept;
   void execGraphicsExportDialog(GraphicsExportDialog::Output output,
                                 const QString& settingsKey) noexcept;
+  void execD356NetlistExportDialog() noexcept;
 
   // General Attributes
   ProjectEditor& mProjectEditor;
@@ -184,6 +185,7 @@ private:
   QScopedPointer<QAction> mActionGenerateBom;
   QScopedPointer<QAction> mActionGenerateFabricationData;
   QScopedPointer<QAction> mActionGeneratePickPlace;
+  QScopedPointer<QAction> mActionGenerateD356Netlist;
   QScopedPointer<QAction> mActionOrderPcb;
   QScopedPointer<QAction> mActionNewBoard;
   QScopedPointer<QAction> mActionCopyBoard;
