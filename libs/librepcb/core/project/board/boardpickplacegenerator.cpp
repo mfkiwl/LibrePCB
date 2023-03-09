@@ -55,6 +55,14 @@ BoardPickPlaceGenerator::~BoardPickPlaceGenerator() noexcept {
  ******************************************************************************/
 
 std::shared_ptr<PickPlaceData> BoardPickPlaceGenerator::generate() noexcept {
+  // Mount type map.
+  static QMap<BI_Device::MountType, PickPlaceDataItem::Type> types = {
+      {BI_Device::MountType::Tht, PickPlaceDataItem::Type::Tht},
+      {BI_Device::MountType::Smt, PickPlaceDataItem::Type::Smt},
+      {BI_Device::MountType::Fiducial, PickPlaceDataItem::Type::Fiducial},
+      {BI_Device::MountType::Other, PickPlaceDataItem::Type::Other},
+  };
+
   std::shared_ptr<PickPlaceData> data = std::make_shared<PickPlaceData>(
       *mBoard.getProject().getMetadata().getName(),
       mBoard.getProject().getMetadata().getVersion(), *mBoard.getName());
@@ -63,12 +71,9 @@ std::shared_ptr<PickPlaceData> BoardPickPlaceGenerator::generate() noexcept {
 
   foreach (const BI_Device* device, mBoard.getDeviceInstances()) {
     // Skip devices which are considered as no device to be mounted.
-    switch (device->determineMountType()) {
-      case BI_Device::MountType::None:
-      case BI_Device::MountType::Fiducial:
-        continue;
-      default:
-        break;
+    auto typeIt = types.find(device->determineMountType());
+    if (typeIt == types.end()) {
+      continue;
     }
 
     QString designator = *device->getComponentInstance().getName();
@@ -78,10 +83,10 @@ std::shared_ptr<PickPlaceData> BoardPickPlaceGenerator::generate() noexcept {
     Point position = device->getPosition();
     Angle rotation = device->getRotation();
     PickPlaceDataItem::BoardSide boardSide = device->getMirrored()
-        ? PickPlaceDataItem::BoardSide::BOTTOM
-        : PickPlaceDataItem::BoardSide::TOP;
+        ? PickPlaceDataItem::BoardSide::Bottom
+        : PickPlaceDataItem::BoardSide::Top;
     data->addItem(PickPlaceDataItem(designator, value, deviceName, packageName,
-                                    position, rotation, boardSide));
+                                    position, rotation, boardSide, *typeIt));
   }
 
   return data;
