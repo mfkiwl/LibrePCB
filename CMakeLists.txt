@@ -120,18 +120,13 @@ find_package(
              Network
              OpenGL
              PrintSupport
+             Quick
+             QuickControls2
              Sql
              Svg
              Widgets
   REQUIRED
 )
-if(BUILD_QTQUICK_TEST)
-  find_package(
-    Qt5 5.5.0
-    COMPONENTS Quick QuickControls2
-    REQUIRED
-  )
-endif()
 if(BUILD_TESTS)
   find_package(
     Qt5 5.5.0
@@ -174,6 +169,7 @@ endif()
 add_subdirectory(libs/librepcb/core)
 add_subdirectory(libs/librepcb/editor)
 add_subdirectory(libs/librepcb/eagleimport)
+add_subdirectory(libs/librepcb/gui)
 add_subdirectory(libs/parseagle)
 
 # Add apps
