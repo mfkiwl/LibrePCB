@@ -184,7 +184,6 @@ private:
 
   // Actions
   QScopedPointer<QAction> mActionLibraryManager;
-  QScopedPointer<QAction> mActionWorkspaceSettings;
   QScopedPointer<QAction> mActionRescanLibraries;
   QScopedPointer<QAction> mActionSwitchWorkspace;
   QScopedPointer<QAction> mActionCloseAllProjects;
